@@ -13,8 +13,8 @@ interface HeaderState {
 
 class Header extends TypedReact.Component<HeaderProps, HeaderState> {
   render() {
-    return div(null,
-      select({ onChange: this._handlePainterChange },
+    return div({ className: 'header' },
+      select({ className: 'header__painter-select', onChange: this._handlePainterChange },
         this.props.core.store.getPainters().map(this._renderPainter)
       )
     );

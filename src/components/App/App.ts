@@ -24,9 +24,10 @@ class App extends TypedReact.Component<AppProps, AppState> {
   render() {
     return div(null,
       Header({ core: this.props.core }),
-      PainterInfo({ core: this.props.core, painter: this.props.core.store.getCurrentPainter() }),
-      ArtworksList({ core: this.props.core, items: this.props.core.store.getCurrentArtworks() })
-    );
+      div({ className: 'painter-details' },
+        PainterInfo({ core: this.props.core, painter: this.props.core.store.getCurrentPainter() }),
+        ArtworksList({ core: this.props.core, items: this.props.core.store.getCurrentArtworks() })
+      ));
   }
 
   private _handleStoreChange() {

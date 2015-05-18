@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+
+  <link href="main.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+  <textarea id="txtQuery">
+select ?wlbl, ?author, ?thumb_url, ?wikiPage
+where {
+  ?artwork a dbpedia-owl:Artwork
+    ; dbpedia-owl:author ?author
+    ; rdfs:label ?wlbl
+    ; dbpedia-owl:thumbnail ?thumb_url
+    .
+
+  optional { ?artwork foaf:page ?wikiPage . }
+
+  filter (lang(?wlbl) = 'en')
+}
+  </textarea>
+
+  <button id="btnQuery">Run Query</button>
+
+  <script src="index.js"></script>
+</body>
+</html>

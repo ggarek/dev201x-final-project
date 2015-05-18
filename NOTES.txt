@@ -1,0 +1,43 @@
+1. query artists who is a painter.
+2. when an artist is selected query artworks for the artist.
+
+UI
+1. Combobox to select an artist
+2. Artist info (artist must be selected)
+3. Artworks list (artist must be selected)
+
+##Query painters
+select 
+    ?painter
+  , ?painter_name
+  , ?painter_birth_place
+  , ?wiki_url
+where {
+  ?painter a dbpedia-owl:Painter 
+  ; foaf:isPrimaryTopicOf ?wiki_url
+  ; dbpprop:name ?painter_name
+  ; dbpedia-owl:birthPlace ?painter_birth_place
+  .
+
+  filter (lang(?painter_name)='en')
+}
+
+##Query Artworks
+select 
+    ?artwork
+    ?artwork_thumbnail
+    ?artwork_wiki_url
+    ?artwork_title
+    ?artwork_abstract
+where {
+  ?artwork a dbpedia-owl:Artwork
+  ; dbpedia-owl:author ?author
+  ; dbpedia-owl:thumbnail ?artwork_thumbnail
+  ; foaf:isPrimaryTopicOf ?artwork_wiki_url
+  ; dbpprop:title ?artwork_title
+  ; dbpedia-owl:abstract ?artwork_abstract
+  .
+
+  filter (?author = <http://dbpedia.org/resource/Arthur_Hughes_(artist)>)
+  filter (lang(?artwork_abstract) = 'en')
+}

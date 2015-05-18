@@ -1,0 +1,26 @@
+{
+  "name": "query-sparql",
+  "version": "0.1.0",
+  "description": "Final project for \"Introduction to Typescript\"",
+  "main": "src/main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "copy:html": "cp assets/index.html dist/",
+    "copy:css": "cp assets/css/*.css dist/css/",
+    "copy:assets": "npm run copy:html && npm run copy:css",
+
+    "clear": "rm -rf dist/**/*.*",
+    "build": "webpack -w",
+
+    "start": "npm run clear && npm run copy:assets && npm run build"
+  },
+  "keywords": [
+    "edx",
+    "typescript",
+    "react",
+    "sparql",
+    "dbpedia"
+  ],
+  "author": "igor ovsiannikov <garek@mail.ru>",
+  "license": "ISC"
+}

@@ -1,61 +1,62 @@
 import Painter from './models/Painter';
+import Artwork from './models/Artwork';
 import NotifyChange from './NotifyChange';
+import queryArtworks from './queries/Artworks';
 
 /**
  * SPARQL Queries
  */
 const QUERY_PAINTERS = `
 select
-    ?painter
-  , ?painter_id
-  , ?painter_name
-  , ?painter_birth_place
-  , ?painter_birth_date
-  , ?painter_death_place
-  , ?painter_death_date
-  , ?painter_wiki_url
+  (COUNT(?artwork) as ?artwork_count)
+  ?paitner
+  ?paitner as ?painter_dbpedia_resource
+  ?painter_id
+  ?painter_name
+  ?painter_wiki_url
+  ?y1 as ?painter_birth_place
+  ?painter_birth_date
+  ?y3 as ?painter_death_place
+  ?painter_death_date
 where {
-  ?painter a dbpedia-owl:Painter
-  ; dbpedia-owl:wikiPageID ?painter_id
-  ; foaf:isPrimaryTopicOf ?painter_wiki_url
-  ; rdfs:label ?painter_name
-  ; dbpedia-owl:birthYear ?painter_birth_date
-  ; dbpedia-owl:deathYear ?painter_death_date
+  ?artwork a dbpedia-owl:Artwork
+  ; dbpprop:artist ?paitner
   .
 
-  ?painter dbpedia-owl:birthPlace ?y .
-  {
-    select
-      ?y
-      group_concat(?z ; separator=", ") as ?painter_birth_place
-    where {
-      ?y rdfs:label ?z .
-      filter (lang(?z)='en')
-    } group by ?y
-  }
+  ?paitner foaf:isPrimaryTopicOf ?painter_wiki_url
+  ; dbpedia-owl:wikiPageID ?painter_id
+  ; rdfs:label ?painter_name
+  ; dbpedia-owl:birthPlace ?y
+  ; dbpedia-owl:birthDate ?painter_birth_date
+  ; dbpedia-owl:deathPlace ?y2
+  ; dbpedia-owl:deathDate ?painter_death_date
+  .
 
-  ?painter dbpedia-owl:deathPlace ?y1 .
-  {
-    select
-      ?y1
-      group_concat(?z1 ; separator=", ") as ?painter_death_place
-    where {
-      ?y1 rdfs:label ?z1 .
-      filter (lang(?z1)='en')
-    } group by ?y1
-  }
+  ?y rdfs:label ?y1 .
+  ?y2 rdfs:label ?y3 .
+
+  filter ( EXISTS {?paitner a dbpedia-owl:Person} )
   filter (lang(?painter_name)='en')
+  filter (lang(?y1)='en')
 }
 group by
-    ?painter_id
-    ?painter
-    ?painter_name
-    ?painter_wiki_url
+  ?painter_id
+  ?paitner
+  ?painter_name
+  ?painter_wiki_url
+  ?y1
+  ?painter_birth_date
+  ?y3
+  ?painter_death_date
+having COUNT(?artwork) > 0
 limit 100
 `;
 
+
+
 class Store extends NotifyChange implements IStore {
   private _painters: Painter[] = [];
+  private _artworksByPainterId: Dictionary<Artwork[]> = {};
 
   constructor() {
     super();
@@ -80,6 +81,39 @@ class Store extends NotifyChange implements IStore {
 
   public getCurrentPainter(): IPainter {
     return this._painters[0];
+  }
+
+  public getCurrentArtworks(): IArtwork[] {
+    var p = this.getCurrentPainter();
+    var artworks: IArtwork[];
+
+    // Painter is not selected
+    if(!p) return [];
+
+    artworks = this._artworksByPainterId[p.id];
+
+    if(!artworks) {
+      // Did not fetch artworks yet
+      this._fetchArtworks(p);
+      return [];
+    }
+
+    return artworks;
+  }
+
+  /**
+   * Private API
+   */
+  private _fetchArtworks(painter: IPainter) {
+    fetchDbpedia(queryArtworks(painter), (error: Error, data: any) => {
+      if(error) {
+        console.error('error loading painters!\n', error);
+        return;
+      }
+
+      this._artworksByPainterId[painter.id] = createArtworks(data);
+      this.emitChange();
+    });
   }
 }
 
@@ -128,7 +162,23 @@ function createPainters(data: any): Painter[] {
     p.birthDate = binding['painter_birth_date'].value;
     p.deathPlace = binding['painter_death_place'].value;
     p.deathDate = binding['painter_death_date'].value;
+    p.dbpediaResource = binding['painter_dbpedia_resource'].value;
 
     return p;
   })
 }
+
+function createArtworks(data: any): Artwork[] {
+  return data.results.bindings.map((binding: any) => {
+    var o = new Artwork();
+    var b = binding;
+
+    o.id = b['artwork_id'].value;
+    o.title = b['artwork_title'].value;
+    o.wikiUrl = b['artwork_wiki_url'].value;
+    o.description = b['artwork_description'].value;
+    o.thumbnail = b['artwork_thumbnail'].value;
+
+    return o;
+  })
+};

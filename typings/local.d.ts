@@ -6,6 +6,7 @@ interface INotifyChange {
 interface IStore extends INotifyChange {
   getPainters(): IPainter[];
   getCurrentPainter(): IPainter;
+  getCurrentArtworks(): IArtwork[];
 }
 
 interface ICore {
@@ -27,4 +28,20 @@ interface IPainter {
   birthDate: string;
   deathPlace: string;
   deathDate: string;
+  dbpediaResource: string;
+}
+
+interface IArtwork {
+  id: string;
+  title: string;
+  wikiUrl: string;
+  thumbnail: string;
+  description: string;
+}
+
+/**
+ * Common
+ */
+interface Dictionary<T> {
+  [index: string]: T;
 }

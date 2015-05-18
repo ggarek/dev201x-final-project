@@ -3,6 +3,7 @@ import TypedReact = require("typed-react");
 
 import Header from '../Header/Header';
 import PainterInfo from '../PainterInfo/PainterInfo';
+import ArtworksList from '../ArtworksList/ArtworksList';
 
 var { div } = React.DOM;
 
@@ -23,8 +24,8 @@ class App extends TypedReact.Component<AppProps, AppState> {
   render() {
     return div(null,
       Header({ core: this.props.core }),
-      PainterInfo( { core: this.props.core, painter: this.props.core.store.getCurrentPainter() }),
-      div(null, 'Hello. That`s App')
+      PainterInfo({ core: this.props.core, painter: this.props.core.store.getCurrentPainter() }),
+      ArtworksList({ core: this.props.core, items: this.props.core.store.getCurrentArtworks() })
     );
   }
 

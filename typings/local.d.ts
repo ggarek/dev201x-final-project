@@ -11,11 +11,20 @@ interface IStore extends INotifyChange {
 
 interface ICore {
   store: IStore;
+  actions: ICoreActions;
 }
 
 interface CoreProps {
   core: ICore;
 }
+
+/**
+ * Actions
+ */
+interface ICoreActions {
+  selectPainter(id:string): void;
+}
+
 
 /**
  * Models

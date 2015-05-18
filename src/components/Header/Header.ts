@@ -4,6 +4,7 @@ import TypedReact = require("typed-react");
 var { div, input, select, option } = React.DOM;
 
 interface HeaderProps extends CoreProps {
+
 }
 
 interface HeaderState {
@@ -13,7 +14,7 @@ interface HeaderState {
 class Header extends TypedReact.Component<HeaderProps, HeaderState> {
   render() {
     return div(null,
-      select(null,
+      select({ onChange: this._handlePainterChange },
         this.props.core.store.getPainters().map(this._renderPainter)
       )
     );
@@ -21,6 +22,12 @@ class Header extends TypedReact.Component<HeaderProps, HeaderState> {
 
   private _renderPainter(painter: IPainter) {
     return option({ value: painter.id }, painter.name);
+  }
+
+  private _handlePainterChange(e:any) {
+    var painterId = e.target.value;
+
+    this.props.core.actions.selectPainter(painterId);
   }
 }
 

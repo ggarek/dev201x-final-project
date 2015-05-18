@@ -56,7 +56,9 @@ limit 100
 
 class Store extends NotifyChange implements IStore {
   private _painters: Painter[] = [];
+  private _paintersById: Dictionary<Painter> = {};
   private _artworksByPainterId: Dictionary<Artwork[]> = {};
+  private _currentPainter: Painter;
 
   constructor() {
     super();
@@ -67,7 +69,9 @@ class Store extends NotifyChange implements IStore {
         return;
       }
 
-      this._painters = createPainters(data);
+      // Create painters and build dictionary in one go
+      this._painters = createPainters(data, (painter:Painter) => this._paintersById[painter.id] = painter);
+      this._currentPainter = this._painters[0];
       this.emitChange();
     })
   }
@@ -80,7 +84,7 @@ class Store extends NotifyChange implements IStore {
   }
 
   public getCurrentPainter(): IPainter {
-    return this._painters[0];
+    return this._currentPainter;
   }
 
   public getCurrentArtworks(): IArtwork[] {
@@ -99,6 +103,12 @@ class Store extends NotifyChange implements IStore {
     }
 
     return artworks;
+  }
+
+  public handleSetCurrentPainter(id:string) {
+    this._currentPainter = this._paintersById[id];
+
+    this.emitChange();
   }
 
   /**
@@ -151,7 +161,7 @@ function fetchDbpedia(query: string, callback:(error:Error, data:any) => void, e
   fetch('GET', url, callback);
 }
 
-function createPainters(data: any): Painter[] {
+function createPainters(data: any, callback?: (painter:Painter) => void): Painter[] {
   return data.results.bindings.map((binding: any) => {
     var p = new Painter;
 
@@ -163,6 +173,8 @@ function createPainters(data: any): Painter[] {
     p.deathPlace = binding['painter_death_place'].value;
     p.deathDate = binding['painter_death_date'].value;
     p.dbpediaResource = binding['painter_dbpedia_resource'].value;
+
+    if(callback) callback(p);
 
     return p;
   })

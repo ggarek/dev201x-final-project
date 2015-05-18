@@ -1,4 +1,5 @@
 /// <reference path="../typings/tsd.d.ts" />
+/// <reference path="../typings/local.d.ts" />
 /// <reference path="../node_modules/typed-react/typed-react.d.ts" />
 
 import React = require('react');

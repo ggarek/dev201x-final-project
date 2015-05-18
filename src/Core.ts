@@ -1,6 +1,6 @@
 import Store from './Store';
 
-class Core {
+class Core implements ICore {
   public store: Store;
 
   constructor() {

@@ -1,22 +1,26 @@
 import React = require("react");
 import TypedReact = require("typed-react");
-import Core from '../../Core';
 
 var { div, input, select, option } = React.DOM;
 
-interface HeaderState {
-
+interface HeaderProps extends CoreProps {
 }
 
-interface HeaderProps {
+interface HeaderState {
 
 }
 
 class Header extends TypedReact.Component<HeaderProps, HeaderState> {
   render() {
     return div(null,
-      input({ type: 'text' })
+      select(null,
+        this.props.core.store.getPainters().map(this._renderPainter)
+      )
     );
+  }
+
+  private _renderPainter(painter: IPainter) {
+    return option({ value: painter.id }, painter.name);
   }
 }
 

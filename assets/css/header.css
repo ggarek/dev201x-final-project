@@ -1,15 +1,29 @@
 .header {
   text-align: center;
-  padding: 5vh;
-  box-shadow: 0px 1px 3px;
+  padding-bottom: 3vh;
+  box-shadow: 0px 1px 3px rgba(34, 49, 63, 1.0);
   position: fixed;
   width: 100vw;
   background-color: white;
 }
 
+.header > h2 {
+  width: 100vw;
+  padding-bottom: 20px;
+  padding-top: 15px;
+  background: rgba(34, 49, 63, 1.0);
+  color: white;
+}
+
 .header__painter-select {
-  padding: 15px;
+  padding: 10px;
   outline: none;
   border: 0px;
   border-bottom: 2px solid rgba(100,100,170,0.9);
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.header__painter-select > option {
+  padding: 4px 0px;
 }

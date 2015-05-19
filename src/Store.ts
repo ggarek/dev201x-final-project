@@ -30,14 +30,19 @@ where {
   ; dbpedia-owl:birthDate ?painter_birth_date
   ; dbpedia-owl:deathPlace ?y2
   ; dbpedia-owl:deathDate ?painter_death_date
+  ; dbpprop:field ?painter_field
   .
+
+
 
   ?y rdfs:label ?y1 .
   ?y2 rdfs:label ?y3 .
 
   filter ( EXISTS {?paitner a dbpedia-owl:Person} )
+  filter ( ?painter_field=<${"http://dbpedia.org/resource/Painting"}> )
   filter (lang(?painter_name)='en')
   filter (lang(?y1)='en')
+  filter (lang(?y3)='en')
 }
 group by
   ?painter_id
@@ -173,6 +178,8 @@ function createPainters(data: any, callback?: (painter:Painter) => void): Painte
     p.deathPlace = binding['painter_death_place'].value;
     p.deathDate = binding['painter_death_date'].value;
     p.dbpediaResource = binding['painter_dbpedia_resource'].value;
+
+    console.log(p.name, p.id);
 
     if(callback) callback(p);
 

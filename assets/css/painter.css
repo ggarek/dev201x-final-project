@@ -20,7 +20,7 @@
   position: fixed;
 
   padding: 10px;
-  min-width: 20vw;
+  max-width: 25vw;
   top: 20vh;
 }
 
@@ -31,7 +31,7 @@
   top: 0;
   width: 2px;
   height: 100%;
-  box-shadow: 2px 0px 2px;
+  box-shadow: 2px 0px 0px rgba(34, 49, 63, 1.0);
 }
 
 .painter-info__name {
@@ -58,6 +58,7 @@
 
 .painter-artworks {
   padding-left: 30vw;
+  width: 70vw;
 }
 
 .painter-artwork {

@@ -4,6 +4,7 @@ import TypedReact = require("typed-react");
 import Header from '../Header/Header';
 import PainterInfo from '../PainterInfo/PainterInfo';
 import ArtworksList from '../ArtworksList/ArtworksList';
+import ProjectInfo from '../ProjectInfo/ProjectInfo';
 
 var { div } = React.DOM;
 
@@ -27,7 +28,9 @@ class App extends TypedReact.Component<AppProps, AppState> {
       div({ className: 'painter-details' },
         PainterInfo({ core: this.props.core, painter: this.props.core.store.getCurrentPainter() }),
         ArtworksList({ core: this.props.core, items: this.props.core.store.getCurrentArtworks() })
-      ));
+      ),
+      ProjectInfo(null)
+    );
   }
 
   private _handleStoreChange() {

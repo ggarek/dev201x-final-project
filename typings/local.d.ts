@@ -37,6 +37,8 @@ interface IPainter {
   birthDate: string;
   deathPlace: string;
   deathDate: string;
+  movement: string;
+  nationality: string;
   dbpediaResource: string;
 }
 

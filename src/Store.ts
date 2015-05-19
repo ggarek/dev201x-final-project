@@ -18,6 +18,8 @@ select
   ?painter_birth_date
   ?y3 as ?painter_death_place
   ?painter_death_date
+  ?y5 as ?painter_nationality
+  ?y7 as ?painter_movement
 where {
   ?artwork a dbpedia-owl:Artwork
   ; dbpprop:artist ?paitner
@@ -31,18 +33,24 @@ where {
   ; dbpedia-owl:deathPlace ?y2
   ; dbpedia-owl:deathDate ?painter_death_date
   ; dbpprop:field ?painter_field
+  ; dbpprop:nationality ?y4
+  ; dbpprop:movement ?y6
   .
 
 
 
   ?y rdfs:label ?y1 .
   ?y2 rdfs:label ?y3 .
+  ?y4 rdfs:label ?y5 .
+  ?y6 rdfs:label ?y7 .
 
   filter ( EXISTS {?paitner a dbpedia-owl:Person} )
   filter ( ?painter_field=<${"http://dbpedia.org/resource/Painting"}> )
   filter (lang(?painter_name)='en')
   filter (lang(?y1)='en')
   filter (lang(?y3)='en')
+  filter (lang(?y5)='en')
+  filter (lang(?y7)='en')
 }
 group by
   ?painter_id
@@ -53,6 +61,8 @@ group by
   ?painter_birth_date
   ?y3
   ?painter_death_date
+  ?y5
+  ?y7
 having COUNT(?artwork) > 0
 limit 100
 `;
@@ -174,9 +184,11 @@ function createPainters(data: any, callback?: (painter:Painter) => void): Painte
     p.name = binding['painter_name'].value;
     p.birthPlace = binding['painter_birth_place'].value;
     p.wikiUrl = binding['painter_wiki_url'].value;
-    p.birthDate = binding['painter_birth_date'].value;
+    p.birthDate = tryParseXSDDateString(binding['painter_birth_date'].value);
     p.deathPlace = binding['painter_death_place'].value;
-    p.deathDate = binding['painter_death_date'].value;
+    p.deathDate = tryParseXSDDateString(binding['painter_death_date'].value);
+    p.movement = binding['painter_movement'].value;
+    p.nationality = binding['painter_nationality'].value;
     p.dbpediaResource = binding['painter_dbpedia_resource'].value;
 
     console.log(p.name, p.id);
@@ -200,4 +212,12 @@ function createArtworks(data: any): Artwork[] {
 
     return o;
   })
-};
+}
+
+function tryParseXSDDateString(value: string) {
+  try {
+    return value.split('+')[0];
+  } catch(e) {
+    return value;
+  }
+}

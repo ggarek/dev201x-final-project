@@ -6,6 +6,8 @@ class Painter implements IPainter {
   public birthDate: string;
   public deathPlace: string;
   public deathDate: string;
+  public movement: string;
+  public nationality: string;
 
   public dbpediaResource: string;
 }

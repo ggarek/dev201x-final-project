@@ -27,9 +27,9 @@ class ProjectInfo extends TypedReact.Component<ProjectInfoProps, ProjectInfoStat
 
       div({ className: 'project-info__header'}, 'Created with'),
       div({ className: 'project-info__text' },
-        a({ className: 'project-info__link', href: ''}, 'Typescript' ),
+        a({ className: 'project-info__link', href: 'http://www.typescriptlang.org/'}, 'Typescript' ),
         span({ className: 'h-separator' }, '|'),
-        a({ className: 'project-info__link', href: ''}, 'React' )
+        a({ className: 'project-info__link', href: 'https://facebook.github.io/react/'}, 'React' )
       ),
 
 

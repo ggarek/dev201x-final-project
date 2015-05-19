@@ -35,6 +35,14 @@ class PainterInfo extends TypedReact.Component<PainterInfoProps, PainterInfoStat
         span({ className: 'painter-info__item__header'}, 'Death Date'),
         span({ className: 'painter-info__item__value'}, p.deathDate)
       ),
+      div({ className: 'painter-info__item'},
+        span({ className: 'painter-info__item__header'}, 'Movement'),
+        span({ className: 'painter-info__item__value'}, p.movement)
+      ),
+      div({ className: 'painter-info__item'},
+        span({ className: 'painter-info__item__header'}, 'Nationality'),
+        span({ className: 'painter-info__item__value'}, p.nationality)
+      ),
       a({ className: 'wiki-link', href: p.wikiUrl}, 'Wikipedia')
     )
   }

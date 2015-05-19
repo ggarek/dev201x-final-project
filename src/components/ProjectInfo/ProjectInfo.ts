@@ -33,7 +33,7 @@ class ProjectInfo extends TypedReact.Component<ProjectInfoProps, ProjectInfoStat
       div({ className: 'project-info__text' },
         a({ className: 'project-info__link', href: 'http://wiki.dbpedia.org/'}, 'DBPedia' ),
         span({ className: 'h-separator' }, '|'),
-        a({ className: 'project-info__link', href: 'https://github.com/'}, 'Github' )
+        a({ className: 'project-info__link', href: 'https://github.com/ggarek/dev201x-final-project'}, 'Github' )
       ),
 
       div({ className: 'project-info__header'}, 'My contacts'),

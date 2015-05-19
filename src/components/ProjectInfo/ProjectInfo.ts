@@ -13,11 +13,7 @@ class ProjectInfo extends TypedReact.Component<ProjectInfoProps, ProjectInfoStat
 
       div({ className: 'project-info__header'}, 'This site is created by'),
       div({ className: 'project-info__text project-info__author' },
-        span(null , 'Igor Ovsiannikov'),
-        span({ className: 'h-separator' }, '|'),
-        a({ className: 'project-info__link', href: 'https://ru.linkedin.com/pub/igor-ovsyannikov/70/b9/98' }, 'linkedin'),
-        span({ className: 'h-separator' }, '|'),
-        a({ className: 'project-info__link', href: 'https://github.com/ggarek' }, 'github')
+        span(null , 'Igor Ovsiannikov')
       ),
 
       div({ className: 'project-info__header'}, 'As a final project for'),
@@ -38,6 +34,13 @@ class ProjectInfo extends TypedReact.Component<ProjectInfoProps, ProjectInfoStat
         a({ className: 'project-info__link', href: 'http://wiki.dbpedia.org/'}, 'DBPedia' ),
         span({ className: 'h-separator' }, '|'),
         a({ className: 'project-info__link', href: 'https://github.com/'}, 'Github' )
+      ),
+
+      div({ className: 'project-info__header'}, 'My contacts'),
+      div({ className: 'project-info__text' },
+        a({ className: 'project-info__link', href: 'https://ru.linkedin.com/pub/igor-ovsyannikov/70/b9/98' }, 'linkedin'),
+        span({ className: 'h-separator' }, '|'),
+        a({ className: 'project-info__link', href: 'https://github.com/ggarek' }, 'github')
       )
     )
   }

@@ -80,3 +80,18 @@
 .painter-artwork__item__value {
 
 }
+
+.painter-artworks__no-items {
+  width: 100%;
+  height: 20vh;
+  text-align: center;
+}
+
+.painter-artworks__no-items:after {
+  content: 'no artworks found';
+  color: rgba(34, 49, 63, 0.5);
+  font-variant: small-caps;
+  font-size: 24px;
+  position: relative;
+  top: 30%;
+}

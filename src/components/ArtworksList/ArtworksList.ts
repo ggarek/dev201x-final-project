@@ -14,8 +14,12 @@ interface ArtworksListState {
 class ArtworksList extends TypedReact.Component<ArtworksListProps, ArtworksListState> {
   render() {
     return div({ className: 'painter-artworks'},
-      this.props.items.map(this._renderArtwork)
+      this.props.items.length > 0 ? this.props.items.map(this._renderArtwork) : this._renderNoItems()
     );
+  }
+
+  private _renderNoItems() {
+    return div({ className: 'painter-artworks__no-items' });
   }
 
   private _renderArtwork(item: IArtwork) {

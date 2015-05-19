@@ -1,0 +1,64 @@
+.h-separator {
+  font-size: 16px;
+  text-align: center;
+  padding: 0px 4px;
+  color: rgba(34, 49, 63, 1.0);
+}
+
+.project-info__link,
+.project-info__link:link,
+.project-info__link:visited,
+.project-info__link:active
+{
+  padding: 5px;
+  display: inline-block;
+  outline: none;
+  text-decoration: none;
+  color: rgba(34, 49, 63, 1.0);
+  font-variant: small-caps;
+  transition: all 300ms ease;
+  text-transform: lowercase;
+  box-shadow: 0px 2px rgba(100, 100, 180, .0);
+}
+
+.project-info__link:hover {
+  box-shadow: 0px 2px rgba(100, 100, 180, .8);
+  background-color: rgba(100,100,100, .15);
+}
+
+.project-info {
+  position: fixed;
+  top: 20vh;
+  right: 0;
+  max-width: 25vw;
+}
+
+.project-info:after {
+  content: ' ';
+  position: absolute;
+  left: -10px;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  box-shadow: -2px 0px 1px rgb(150, 40, 27);
+}
+
+.project-info__header {
+  font-size: 16px;
+  font-weight: 700;
+  font-variant: small-caps;
+  padding: 5px 0px 0px 0px;
+  text-transform: lowercase;
+  color: rgb(150, 40, 27);
+}
+
+.project-info__text {
+  padding-left: 10px;
+  color: rgba(34, 49, 63, 1.0);
+}
+
+.project-info__author > span {
+  color: rgba(34, 49, 63, 1.0);
+  text-transform: lowercase;
+  font-variant: small-caps;
+}

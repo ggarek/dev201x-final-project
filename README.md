@@ -8,3 +8,6 @@ The site allows you to select a painter and explore his artworks.
 
 It is published via github pages and is available [here](http://ggarek.github.io/dev201x-final-project/)
 
+
+[useful link to deploy via github pages](https://gist.github.com/cobyism/4730490)
+

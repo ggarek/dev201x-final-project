@@ -1,6 +1,6 @@
 #World Artist and Paintings
 
-This is the final project for the edx.ord course named ["Microsoft: DEV201x Introduction to TypeScript"](https://courses.edx.org/courses/course-v1:Microsoft+DEV201x+2015_T2).
+This is the final project for the edx.org course named ["Microsoft: DEV201x Introduction to TypeScript"](https://courses.edx.org/courses/course-v1:Microsoft+DEV201x+2015_T2).
 
 It is written using React and Typescript. And it uses [DBPedia](http://dbpedia.org/) as endpoint.
 
